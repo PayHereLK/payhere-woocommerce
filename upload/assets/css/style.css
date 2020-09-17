@@ -1,0 +1,5 @@
+#payment .payment_methods li img.ph-logo-style{
+    float: none;
+    max-height: none;
+    width: 100%;
+}
