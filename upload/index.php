@@ -129,6 +129,10 @@ function woocommerce_gateway_payhere_init()
         {
 
             $this->form_fields = array(
+                'seperator_1' => array(
+                    'title' => __('General Settings', 'woo_payhere'),
+                    'type' => 'seperator'
+                ),
                 // Activate the Gateway
                 'enabled' => array(
                     'title' => __('Enable/Disable', 'woo_payhere'),
@@ -166,19 +170,6 @@ function woocommerce_gateway_payhere_init()
                     'type' => 'text',
                     'description' => __('Secret word you set in your PayHere Account'),
                     'desc_tip' => true
-                ),// Business App ID
-                'app_id' => array(
-                    'title' => __('App ID', 'woo_payhere'),
-                    'type' => 'text',
-                    'description' => __('Your PayHere Business App ID <a target="_blank" href="https://support.payhere.lk/api-&-mobile-sdk/payhere-subscription#1-create-a-business-app">More Info</a>'),
-                    'desc_tip' => false
-                ),
-                // Business App Secret
-                'app_secret' => array(
-                    'title' => __('App Secret', 'woo_payhere'),
-                    'type' => 'text',
-                    'description' => __('Your PayHere Business App Secret'),
-                    'desc_tip' => true
                 ),
                 // Mode of Transaction
                 'test_mode' => array(
@@ -205,7 +196,28 @@ function woocommerce_gateway_payhere_init()
                     'options' => $this->payhere_get_pages('Select Page'),
                     'description' => __('Page to redirect the customer after payment', 'woo_payhere'),
                     'desc_tip' => true
-                )
+                ),
+                'seperator_2' => array(
+                    'title' => __('Recurring Payments', 'woo_payhere'),
+                    'description' => __('You will only need below credentials if you have subscriptions available.', 'woo_payhere'),
+                    'type' => 'seperator'
+                ),
+                // Business App ID
+                'app_id' => array(
+                    'title' => __('App ID', 'woo_payhere'),
+                    'type' => 'text',
+                    'description' => __('Your PayHere Business App ID <a target="_blank" href="https://support.payhere.lk/api-&-mobile-sdk/payhere-subscription#1-create-a-business-app">More Info</a>'),
+                    'desc_tip' => false
+                ),
+                // Business App Secret
+                'app_secret' => array(
+                    'title' => __('App Secret', 'woo_payhere'),
+                    'type' => 'text',
+                    'description' => __('Your PayHere Business App Secret'),
+                    'desc_tip' => true
+                ),
+
+
             );
         }
 
@@ -241,7 +253,30 @@ function woocommerce_gateway_payhere_init()
             // Generate the HTML For the settings form.
             $this->generate_settings_html();
             echo '</table>';
+            echo '<div style="background-color: #ffd5ba;color: #a04701;padding: 5px 20px">';
+            echo '<h4><span class="dashicons dashicons-warning"></span>Important!!</h4>';
+            echo '<p>Payhere doesn\'t support Renewals,Switching and Synchronisation.</p>';
+            echo '<p>Please don\'t enable above features in Woocommerce Subscription Plugin settings</p>';
+            echo '</div>';
+
         }
+
+        public function generate_seperator_html($field_key, $data)
+        {
+            ob_start();
+            ?>
+            <tr>
+                <td class="titledesc"  colspan="2">
+                    <h3><?php echo wp_kses_post( $data['title'] ); ?></h3>
+                    <p><?php echo wp_kses_post( $data['description'] ); ?></p>
+                </td>
+                <td></td>
+            </tr>
+            <?php
+
+            return ob_get_clean();
+        }
+
 
         /**
          * Availability Check
