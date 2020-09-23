@@ -79,7 +79,7 @@ function write_log($section, $content)
         mkdir($logs_dir, 0755, true);
     }
 
-    $__content = '';
+    $__content = $content;
     if (is_array($content) || is_object($content)) {
         $__content = json_encode(print_r($content, true));
     }
