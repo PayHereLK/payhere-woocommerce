@@ -571,6 +571,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
                                         'card_holder_name' => $_REQUEST['card_holder_name'],
                                         'card_no' => $_REQUEST['card_no'],
                                         'card_expiry' => $_REQUEST['card_expiry'],
+                                        'saved_date' => time(),
                                         'method' => $_REQUEST['method']
                                     );
                                     update_user_meta($order->get_customer_id(), 'payhere_customer_data', json_encode($card_data));

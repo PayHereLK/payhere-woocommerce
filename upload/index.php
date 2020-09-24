@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce PayHere Payment Gateway
 Plugin URI: https://www.payhere.lk
 Description: PayHere Payment Gateway allows you to accept payment on your Woocommerce store via Visa, MasterCard, AMEX, eZcash, mCash & Internet banking services.
-Version: 1.0.10
+Version: 1.0.11
 Author: PayHere (Private) Limited
 Author URI: https://www.payhere.lk
 */
@@ -13,6 +13,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include 'subscription_restrictions_actions.php';
+include 'classes/Customer_List_Options.php';
+//Add new Section to My Account Page
+include 'my-account-actions.php';
 
 add_action('plugins_loaded', 'woocommerce_gateway_payhere_init', 0);
 define('payhere_IMG', WP_PLUGIN_URL . "/" . plugin_basename(dirname(__FILE__)) . '/assets/img/');
@@ -60,7 +63,7 @@ function payhere_add_action_plugin($actions, $plugin_file)
     return $actions;
 }
 
-add_action('woocommerce_edit_account_form', 'woocommerce_account_edit_address', 999);
+//add_action('woocommerce_edit_account_form', 'woocommerce_account_edit_address', 999);
 
 function woocommerce_account_edit_address()
 {
@@ -75,10 +78,18 @@ function woocommerce_account_edit_address()
 }
 
 add_action('wp_ajax_payhere_remove_card', 'payhere_remove_saved_card');
-function payhere_remove_saved_card(){
+function payhere_remove_saved_card()
+{
     delete_user_meta(get_current_user_id(), 'payhere_customer_token');
     delete_user_meta(get_current_user_id(), 'payhere_customer_data');
 
-    echo json_encode(array('type'=>'OK','message'=>'Saved card removed successfully.'));
+    echo json_encode(array('type' => 'OK', 'message' => 'Saved card removed successfully.'));
     exit();
 }
+
+//Add Menu to Woocommerce admin menu list
+add_action('plugins_loaded', function () {
+    Customer_List_Options::get_instance();
+});
+
+
