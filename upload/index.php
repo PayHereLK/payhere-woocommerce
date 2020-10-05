@@ -13,8 +13,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include 'subscription_restrictions_actions.php';
-include 'classes/Customer_List_Options.php';
-//Add new Section to My Account Page
+include 'classes/PH_Customer_List_Options.php';
 include 'my-account-actions.php';
 
 add_action('plugins_loaded', 'woocommerce_gateway_payhere_init', 0);
@@ -89,7 +88,7 @@ function payhere_remove_saved_card()
 
 //Add Menu to Woocommerce admin menu list
 add_action('plugins_loaded', function () {
-    Customer_List_Options::get_instance();
+    PH_Customer_List_Options::get_instance();
 });
 
 

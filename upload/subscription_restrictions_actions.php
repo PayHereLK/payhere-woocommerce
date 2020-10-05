@@ -32,7 +32,7 @@ function payhere_user_has_capability($allcaps, $caps, $args){
 add_filter( 'user_has_cap', 'payhere_user_has_capability', 25, 3 );
 
 
-function _payhere_getAuthorizationToken($app_id, $app_secret, $test_mode)
+function payhere_getAuthorizationToken($app_id, $app_secret, $test_mode)
 {
     if ($test_mode == 'yes') {
         $url = 'https://sandbox.payhere.lk/merchant/v1/oauth/token';
@@ -60,7 +60,7 @@ function _payhere_getAuthorizationToken($app_id, $app_secret, $test_mode)
 
         if ($head) {
             $auth_token_data = json_decode($head);
-            write_log('tokenize', array('app_id' => $app_id, 'app_secret' => $app_secret, 'respond' => $auth_token_data));
+            payhere_write_log('tokenize', array('app_id' => $app_id, 'app_secret' => $app_secret, 'respond' => $auth_token_data));
             if (isset($auth_token_data->access_token) && !empty($auth_token_data->access_token)) {
                 return $auth_token_data->access_token;
             }
@@ -70,7 +70,7 @@ function _payhere_getAuthorizationToken($app_id, $app_secret, $test_mode)
     return FALSE;
 }
 
-function write_log($section, $content)
+function payhere_write_log($section, $content)
 {
     $uploads = wp_upload_dir(null, false);
     $logs_dir = $uploads['basedir'] . '/payhere-logs';

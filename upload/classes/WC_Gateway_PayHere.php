@@ -575,7 +575,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
                                         'method' => $_REQUEST['method']
                                     );
                                     update_user_meta($order->get_customer_id(), 'payhere_customer_data', json_encode($card_data));
-                                    write_log('payhere_customer_token', $order->get_customer_id() . ' : ' . $_REQUEST['customer_token']);
+                                    payhere_write_log('payhere_customer_token', $order->get_customer_id() . ' : ' . $_REQUEST['customer_token']);
                                 } else {
                                     $trans_authorised = true;
                                     $this->msg['message'] = "Thank you for shopping with us. Your account has been charged and your transaction is successful.";
@@ -682,12 +682,12 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
             $_auth_token_data = $this->getAuthorizationToken($effective_app_id, $effective_app_secret, $effective_test_mode == 'yes');
             $auth_token_data = json_decode($_auth_token_data);
 
-            write_log('authorization_token', $_auth_token_data);
+            payhere_write_log('authorization_token', $_auth_token_data);
 
             if (isset($auth_token_data->access_token) && !empty($auth_token_data->access_token)) {
                 $order = new WC_Order($order_id);
                 $_charge_response = $this->submitCharge($auth_token_data->access_token, $customer_token, $order_id, $order->get_total(), $effective_test_mode == 'yes');
-                write_log('charge_response', $_charge_response);
+                payhere_write_log('charge_response', $_charge_response);
                 $charge_response = json_decode($_charge_response);
                 if ($charge_response->status == '1') {
 
@@ -962,7 +962,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
         $effective_app_secret = apply_filters('payhere_filter_app_secret', $this->app_secret, $effective_merchant_id);
         $effective_test_mode = apply_filters('payhere_filter_test_mode', $this->settings['test_mode'], $effective_merchant_id);
 
-        $token = _payhere_getAuthorizationToken($effective_app_id, $effective_app_secret, $effective_test_mode);
+        $token = payhere_getAuthorizationToken($effective_app_id, $effective_app_secret, $effective_test_mode);
 
         $url = 'https://www.payhere.lk/merchant/v1/subscription/cancel';
         if ($effective_test_mode == 'yes') {
@@ -992,12 +992,12 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
 
             if ($head) {
                 $respond_data = json_decode($head);
-                write_log('subscription/cancel', array('respond' => $respond_data));
+                payhere_write_log('subscription/cancel', array('respond' => $respond_data));
                 return true;
             }
             return false;
         } else {
-            write_log('subscription/cancel', array('' => 'Subscription ID Not Found'));
+            payhere_write_log('subscription/cancel', array('' => 'Subscription ID Not Found'));
         }
 
     }
