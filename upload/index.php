@@ -8,10 +8,6 @@ Author: PayHere (Private) Limited
 Author URI: https://www.payhere.lk
 */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include 'subscription_restrictions_actions.php';
 include 'classes/PH_Customer_List_Options.php';
 include 'my-account-actions.php';
@@ -22,7 +18,6 @@ define('payhere_IMG', WP_PLUGIN_URL . "/" . plugin_basename(dirname(__FILE__)) .
 add_action('wp_ajax_payhere_charge', 'payhere_ajax_charge_payment');
 function payhere_ajax_charge_payment()
 {
-
     $_wc_gtway = new WC_Gateway_PayHere();
 
     echo json_encode(array('data' => $_wc_gtway->charge_payment()));
@@ -60,20 +55,6 @@ function payhere_add_action_plugin($actions, $plugin_file)
     }
 
     return $actions;
-}
-
-//add_action('woocommerce_edit_account_form', 'woocommerce_account_edit_address', 999);
-
-function woocommerce_account_edit_address()
-{
-    $customer_token = get_user_meta(get_current_user_id(), 'payhere_customer_token', true);
-    if (!empty($customer_token)) {
-        $_card_info = get_user_meta(get_current_user_id(), 'payhere_customer_data', true);
-        $card_info = json_decode($_card_info);
-        ob_start();
-        include plugin_dir_path(__FILE__) . 'templates/remove-card.php';
-        echo ob_get_clean();
-    }
 }
 
 add_action('wp_ajax_payhere_remove_card', 'payhere_remove_saved_card');
