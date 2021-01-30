@@ -6,6 +6,8 @@ Description: PayHere Payment Gateway allows you to accept payment on your Woocom
 Version: 1.0.11
 Author: PayHere (Private) Limited
 Author URI: https://www.payhere.lk
+ * WC requires at least: 3.2.0
+ * WC tested up to: 4.9.0
 */
 
 include 'subscription_restrictions_actions.php';
