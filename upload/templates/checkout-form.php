@@ -81,7 +81,8 @@ if (!$onsite_checkout_enabled) {
         }
         ?>
 
-    <?php } else {
+    <?php } 
+    if(!is_user_logged_in()) {
         ?>
         <a class="button-alt" target="_blank" href="<?php echo site_url('/my-account/'); ?>">
             <?php echo __('Login to Continue', 'woo_payhere') ?>
@@ -91,12 +92,11 @@ if (!$onsite_checkout_enabled) {
     } ?>
     <br/>
 
-
     <button type="button" class="button-alt" id="show_payhere_payment_onsite" onclick="payhere_submit_trigger()">
         <?php echo __('Pay via Payhere', 'woo_payhere') ?>
     </button>
     <?php
-    if (empty($customer_token) && is_user_logged_in()) {
+    if (empty($customer_token) && is_user_logged_in() && $enable_tokenizer && $can_use_charging_api) {
         ?>
         <label class="checkbox">
             <input type="checkbox" value="1" id="save-card" checked>

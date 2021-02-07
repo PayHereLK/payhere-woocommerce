@@ -62,6 +62,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
         $this->merchant_id = $this->settings['merchant_id'];
         $this->secret = $this->settings['secret'];
         $this->app_id = $this->settings['app_id'];
+        $this->enable_tokenizer = $this->settings['enable_tokenizer']=='yes';
         $this->app_secret = $this->settings['app_secret'];
         // Define the Redirect Page.
         $this->redirect_page = $this->settings['redirect_page'];
@@ -438,6 +439,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
         $can_use_charging_api = false;
         $effective_app_id = apply_filters('payhere_filter_app_id', $this->app_id, $effective_merchant_id);
         $effective_app_secret = apply_filters('payhere_filter_app_secret', $this->app_secret, $effective_merchant_id);
+        $enable_tokenizer = $this->enable_tokenizer;
         if (!empty($effective_app_id) && !empty($effective_app_secret)) {
             $can_use_charging_api = true;
         }
