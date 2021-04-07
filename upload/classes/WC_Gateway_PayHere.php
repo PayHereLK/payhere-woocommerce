@@ -79,7 +79,6 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
 
         add_action('woocommerce_subscription_cancelled_' . $this->id, array($this, 'unsubscribe_from_payhere_api'));
 
-
         if (version_compare(WOOCOMMERCE_VERSION, '2.0.0', '>=')) {
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, array(&$this, 'process_admin_options')); //update for woocommerce >2.0
         } else {
@@ -508,6 +507,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
                 add_query_arg(
                     'key',
                     $order->order_key,
+//                    $order->get_order_key(),
                     $checkout_payment_url
                 )
             )
@@ -595,7 +595,7 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
                                             $order->save();
                                         }
 
-                                        $woocommerce->cart->empty_csart();
+                                        $woocommerce->cart->empty_cart();
                                     }
 
                                     if ($is_subscription) {
@@ -971,8 +971,11 @@ class WC_Gateway_PayHere extends WC_Payment_Gateway
             $url = 'https://sandbox.payhere.lk/merchant/v1/subscription/cancel';
         }
 
-        $parent_order_id = $subscription->get_related_orders('ids', 'parent');
-        $order = wc_get_order(($parent_order_id));
+        // Getting the related Order ID (added WC 3+ comaptibility)
+//        $parent_order_id = method_exists( $subscription, 'get_parent_id' ) ? $subscription->get_parent_id() : $subscription->order->id;
+
+        // Getting an instance of the related WC_Order Object (added WC 3+ comaptibility)
+        $order = method_exists( $subscription, 'get_parent' ) ? $subscription->get_parent() : $subscription->order;
 
         $subscription_id = $order->get_meta('_payhere_subscription_id');
 

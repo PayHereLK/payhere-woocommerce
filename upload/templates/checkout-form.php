@@ -51,6 +51,13 @@ if (!$onsite_checkout_enabled) {
     </form>
     <?php
 }
+$contains_sunscription_item = false;
+if (function_exists('wcs_order_contains_subscription')) {
+    $contains_sunscription_item = wcs_order_contains_subscription($order->get_id());
+}
+if ($can_use_charging_api) {
+    $can_use_charging_api = $contains_sunscription_item == true ? false : true;
+}
 ?>
 
 <div class="pay-button-wrapper">
@@ -81,8 +88,8 @@ if (!$onsite_checkout_enabled) {
         }
         ?>
 
-    <?php } 
-    if(!is_user_logged_in()) {
+    <?php }
+    if (!is_user_logged_in()) {
         ?>
         <a class="button-alt" target="_blank" href="<?php echo site_url('/my-account/'); ?>">
             <?php echo __('Login to Continue', 'woo_payhere') ?>
@@ -96,7 +103,9 @@ if (!$onsite_checkout_enabled) {
         <?php echo __('Pay via Payhere', 'woo_payhere') ?>
     </button>
     <?php
+    $save_card_active = false;
     if (empty($customer_token) && is_user_logged_in() && $enable_tokenizer && $can_use_charging_api) {
+        $save_card_active = true;
         ?>
         <label class="checkbox">
             <input type="checkbox" value="1" id="save-card" checked>
@@ -166,9 +175,15 @@ if (!$onsite_checkout_enabled) {
     <?php
     if(isset($_GET['preapproval']) && $_GET['preapproval'] == 'yes'){
     ?>
-    payhere_chage_call(<?php echo $order->get_id() ?>);
+        payhere_chage_call(<?php echo $order->get_id() ?>);
     <?php
-    }
+        }else{
+            if(!$save_card_active){
+            ?>
+                payhere_submit_trigger();
+            <?php
+            }
+        }
     ?>
 
     function payhere_submit_trigger() {
