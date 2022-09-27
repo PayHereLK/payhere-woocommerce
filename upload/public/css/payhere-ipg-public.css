@@ -1,0 +1,33 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.payhere-card-container {
+    padding: 20px;
+}
+
+.payhere-card-container h4 {
+    font-size: 16px;
+}
+
+.payhere-card-container p {
+    margin: 0px;
+}
+
+.payhere-saved-card-wrapper {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border: 1px  solid #f5f4f4;
+    box-shadow: 1px 2px #f5f4f4;
+}
+.payhere-method-icon{
+    margin-right: 10px;
+}
+.payhere-method-info{
+    font-size: 12px;
+}
+.payhere-method-icon img{
+    height: 50px!important;
+}

@@ -1,0 +1,75 @@
+.payhere-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.payhere-content {
+    padding: 10px;
+    background-color: transparent;
+    color: #efefef;
+    text-align: center;
+}
+
+.payhere-content h3 {
+    color: #efefef;
+}
+
+.pay-button-wrapper {
+    display: flex;
+    align-items: center;
+}
+.pay-button-wrapper label{
+    margin: 0px;
+}
+
+#show_payhere_charge_now {
+    margin-right: 15px;
+}
+
+.payhere-button {
+    background-color: #2447d7;
+    color: #fff;
+    border-radius: 5px;
+    padding: 4px 10px;
+    border: none;
+    margin: 10px;
+}
+
+.ph-btn{
+    padding: 12px 22px;
+    text-decoration: none!important;
+    margin: 5px;
+    display: inline-block;
+}
+.ph-btn.blue{
+    background-color: #2447d7;
+    color: #efefef;
+    border: 1px solid #1c3ab3;
+}
+.ph-btn.gray{
+    background-color: #eeeeee;
+    color: #202020;
+    border: 1px solid #dadada;
+}
+
+.payhere-button-alt {
+    background-color: transparent;
+    color: #2447d7;
+    border-radius: 5px;
+    padding: 4px 10px;
+    border: none;
+    margin: 10px;
+}
+
+.payhere-overlay img {
+    width: 60px;
+    margin: auto;
+}

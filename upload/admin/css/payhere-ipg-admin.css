@@ -1,0 +1,138 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+.alert {
+    padding: 10px 15px;
+}
+
+.alert.alert-danger {
+    background-color: #ffd5ba;
+    color: #a04701;
+    padding: 5px 20px 25px;
+}
+
+.alert.alert-danger h3 {
+    color: #a04701;
+}
+
+.alert.alert-info {
+    background-color: #bafff7;
+    color: #018da0;
+    padding: 5px 20px
+}
+
+.alert.alert-info h3 {
+    color: #018da0;
+}
+
+.alert.alert-success {
+    background-color: #bfffba;
+    color: #11a001;
+    padding: 5px 20px
+}
+
+.alert.alert-success h3 {
+    color: #11a001;
+}
+
+.payhere-data-row {
+    display: flex;
+    padding: 5px 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.text-warning {
+    color: #cb5e00;
+}
+
+.text-danger {
+    color: #cb0000;
+}
+
+.text-success {
+    color: #339608;
+}
+
+.payhere-data-row div:first-child {
+    display: flex;
+    width: 200px;
+    margin-right: 15px;
+}
+
+.payhere-capture-initiater a, .capture-button {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    display: inline-block;
+    text-decoration: none;
+    text-shadow: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.payhere-capture-initiater a:hover {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+
+.capture-button:disabled, .capture-button[disabled] {
+    background: #4d99d7;
+    border-color: #1f90ec;
+}
+
+.capture-window .payhere-data-row {
+    margin-top: 10px;
+}
+
+.capture-window {
+    padding-top: 10px;
+    overflow: hidden;
+}
+
+.payhere-modal-header {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#TB_ajaxContent.TB_modal {
+    padding: 0px !important;
+}
+
+#TB_window, #TB_title {
+    border-radius: 6px;
+}
+
+.capture-window p {
+    margin: 0px;
+    padding: 0px 0 0 10px !important;
+}
+
+.input-wrapper {
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    padding: 0px 3px;
+}
+
+.input-wrapper span {
+    line-height: 30px;
+}
+
+.input-wrapper input, .input-wrapper input:focus {
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
